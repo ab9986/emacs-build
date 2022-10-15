@@ -181,7 +181,10 @@ function action0_clone ()
     if test "$emacs_apply_patches" = "yes"; then
         apply_patches "$emacs_source_dir" || true
     fi
-    echo "::set-output name=EMACS_COMMIT::`git_version $emacs_source_dir`"
+
+    if test $GITHUB_ENV; then
+        echo "EMACS_COMMIT=`git_version $emacs_source_dir`" >> $GITHUB_ENV
+    fi
 }
 
 function action1_ensure_packages ()
@@ -194,6 +197,7 @@ function action1_ensure_packages ()
 
 function action2_build ()
 {
+    echo start building
     rm -f "$emacs_install_dir/bin/emacs.exe"
     if prepare_source_dir $emacs_source_dir \
             && prepare_build_dir $emacs_build_dir && emacs_configure_build_dir; then
@@ -439,7 +443,7 @@ emacs_build_install_dir="$emacs_build_root/pkg"
 emacs_build_zip_dir="$emacs_build_root/zips"
 emacs_strip_executables="no"
 
-CFLAGS="-g -Ofast -fno-finite-math-only"
+CFLAGS="-Ofast -fno-finite-math-only -fomit-frame-pointer"
 
 while test -n "$*"; do
     case $1 in
