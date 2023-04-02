@@ -40,6 +40,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      # Setup msys2
+      - uses: msys2/setup-msys2@v2
+        if: runner.os == 'Windows'
+        with:
+          release: false
       # This is the shortest job, but in this case it pulls all MSYS/MINGW64
       - name: Clone Emacs
         if: runner.os == 'Windows'
@@ -52,10 +57,11 @@ jobs:
           cd ./git/emacs/
           git clone --depth 1 $EMACS_REPO .
           echo "EMACS_COMMIT=`date +'%Y%m%d'`.`git rev-parse --short=7 HEAD`" >> $GITHUB_ENV
+          echo "EMACS_MAJOR_VER=`cat configure.ac | grep -Po 'AC_INIT\(.*\[\K\d+'`" >> $GITHUB_ENV
 
       - name: Set package version
         run: |
-          echo "EMACS_VER=29.${{ github.run_number }}.${{ env.EMACS_COMMIT }}" >> $GITHUB_ENV
+          echo "EMACS_VER=${{ env.EMACS_MAJOR_VER }}.${{ github.run_number }}.${{ env.EMACS_COMMIT }}" >> $GITHUB_ENV
         shell: bash
 
       - name: Build and pack Emacs
