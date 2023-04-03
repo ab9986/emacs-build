@@ -207,7 +207,7 @@ function action2_build ()
         echo Building tree-sitter in directory $PWD
         $emacs_source_dir/admin/notes/tree-sitter/build-module/batch.sh
         ls -l
-        mv *.dll $emacs_build_dir/
+        mv ./dist/*.dll $emacs_build_dir/
         cd "${tsdir}"            
         echo Building Emacs in directory $emacs_build_dir
         make -j $emacs_build_threads -C $emacs_build_dir && return 0
