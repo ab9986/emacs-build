@@ -202,9 +202,12 @@ function action2_build ()
     rm -f "$emacs_install_dir/bin/emacs.exe"
     if prepare_source_dir $emacs_source_dir \
             && prepare_build_dir $emacs_build_dir && emacs_configure_build_dir; then
+        tsdir="$PWD"
+        cd $emacs_source_dir/admin/notes/tree-sitter/build-module/
         echo Building tree-sitter in directory $PWD
         $emacs_source_dir/admin/notes/tree-sitter/build-module/batch.sh
         mv $PWD/*.dll $emacs_build_dir/
+        cd "${tsdir}"            
         echo Building Emacs in directory $emacs_build_dir
         make -j $emacs_build_threads -C $emacs_build_dir && return 0
     fi
