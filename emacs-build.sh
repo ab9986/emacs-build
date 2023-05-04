@@ -251,7 +251,8 @@ function action2_install ()
         cd emacs-rime
         gcc lib.c -o librime-emacs.dll -O2 -shared -I. -I"$emacs_install_dir/include" -L. -llibrime
         ls -l
-        mv librime-emacs.dll "$emacs_install_dir/bin/" 
+        mv *.dll "$emacs_install_dir/bin/" 
+        
         cd "${tsdir}"     
     fi
 }
