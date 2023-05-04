@@ -208,11 +208,7 @@ function action2_build ()
         $emacs_source_dir/admin/notes/tree-sitter/build-module/batch.sh
         cd ./dist        
         ls -l
-        mv *.dll "$emacs_install_dir/bin/"   
-        git clone https://github.com/ab9986/emacs-rime.git  --depth 1 --quiet
-        cd emacs-rime
-        gcc lib.c -o librime-emacs.dll -O2 -shared -I. -I"$emacs_source_dir/include" -L. -llibrime
-        mv librime-emacs.dll "$emacs_install_dir/bin/" 
+        mv *.dll "$emacs_install_dir/bin/"
         cd "${tsdir}"        
         echo Building Emacs in directory $emacs_build_dir        
         make -j $emacs_build_threads -C $emacs_build_dir && return 0
@@ -248,6 +244,15 @@ function action2_install ()
             && mkdir -p "$emacs_install_dir/usr/share/emacs/site-lisp/" \
             && cp "$emacs_install_dir/share/emacs/site-lisp/subdirs.el" \
                   "$emacs_install_dir/usr/share/emacs/site-lisp/subdirs.el"
+        tsdir="$PWD"
+        cd $emacs_source_dir/admin/notes/tree-sitter/build-module/
+        echo Building tree-sitter in directory $PWD 
+        git clone https://github.com/ab9986/emacs-rime.git  --depth 1 --quiet
+        cd emacs-rime
+        gcc lib.c -o librime-emacs.dll -O2 -shared -I. -I"$emacs_install_dir/include" -L. -llibrime
+        ls -l
+        mv librime-emacs.dll "$emacs_install_dir/bin/" 
+        cd "${tsdir}"     
     fi
 }
 
