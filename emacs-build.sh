@@ -201,15 +201,7 @@ function action2_build ()
     echo start building
     rm -f "$emacs_install_dir/bin/emacs.exe"
     if prepare_source_dir $emacs_source_dir \
-            && prepare_build_dir $emacs_build_dir && emacs_configure_build_dir; then
-        tsdir="$PWD"
-        cd $emacs_source_dir/admin/notes/tree-sitter/build-module/
-        echo Building tree-sitter in directory $PWD
-        $emacs_source_dir/admin/notes/tree-sitter/build-module/batch.sh
-        cd ./dist        
-        ls -l
-        mv *.dll "$emacs_install_dir/bin/"
-        cd "${tsdir}"        
+            && prepare_build_dir $emacs_build_dir && emacs_configure_build_dir; then      
         echo Building Emacs in directory $emacs_build_dir        
         make -j $emacs_build_threads -C $emacs_build_dir && return 0
     fi
@@ -246,13 +238,17 @@ function action2_install ()
                   "$emacs_install_dir/usr/share/emacs/site-lisp/subdirs.el"
         tsdir="$PWD"
         cd $emacs_source_dir/admin/notes/tree-sitter/build-module/
-        echo Building tree-sitter in directory $PWD 
+        echo Building emacs-rime in directory $PWD 
         git clone https://github.com/ab9986/emacs-rime.git  --depth 1 --quiet
         cd emacs-rime
+        echo gcc lib.c -o librime-emacs.dll -O2 -shared -I. -I"$emacs_install_dir/include" -L. -llibrime
         gcc lib.c -o librime-emacs.dll -O2 -shared -I. -I"$emacs_install_dir/include" -L. -llibrime
         ls -l
         mv *.dll "$emacs_install_dir/bin/" 
-        
+        cd $emacs_source_dir/admin/notes/tree-sitter/build-module/batch.sh
+        cd ./dist        
+        ls -l
+        mv *.dll "$emacs_install_dir/bin/"
         cd "${tsdir}"     
     fi
 }
