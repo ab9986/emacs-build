@@ -208,9 +208,9 @@ function action2_build ()
         $emacs_source_dir/admin/notes/tree-sitter/build-module/batch.sh
         cd ./dist        
         ls -l
-        mv ./dist/*.dll $emacs_build_dir
-        cd "${tsdir}"            
-        echo Building Emacs in directory $emacs_build_dir
+        mv *.dll "$emacs_install_dir/bin/"        
+        cd "${tsdir}"        
+        echo Building Emacs in directory $emacs_build_dir        
         make -j $emacs_build_threads -C $emacs_build_dir && return 0
     fi
     echo Configuration and build process failed
