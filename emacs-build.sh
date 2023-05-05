@@ -241,11 +241,13 @@ function action2_install ()
         echo Building emacs-rime in directory $PWD 
         git clone https://github.com/ab9986/emacs-rime.git  --depth 1 --quiet
         cd emacs-rime
-        echo gcc lib.c -o librime-emacs.dll -O2 -shared -I. -I"$emacs_install_dir/include" -L. -llibrime
-        gcc lib.c -o librime-emacs.dll -O2 -shared -I. -I"$emacs_install_dir/include" -L. -llibrime
+        echo gcc lib.c -o librime-emacs.dll -O2 -shared -I. -I"$emacs_install_dir/include" -L. -lrime
+        gcc lib.c -o librime-emacs.dll -O2 -shared -I. -I"$emacs_install_dir/include" -L. -lrime
         ls -l
         mv *.dll "$emacs_install_dir/bin/" 
-        cd $emacs_source_dir/admin/notes/tree-sitter/build-module/batch.sh
+        cd $emacs_source_dir/admin/notes/tree-sitter/build-module/
+        echo Building tree-sitter in directory $PWD
+        $emacs_source_dir/admin/notes/tree-sitter/build-module/batch.sh
         cd ./dist        
         ls -l
         mv *.dll "$emacs_install_dir/bin/"
