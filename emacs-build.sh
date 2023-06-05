@@ -244,6 +244,8 @@ function action2_install ()
         echo gcc lib.c -o librime-emacs.dll -O2 -shared -I. -I"$emacs_install_dir/include/" -L. -llibrime
         gcc lib.c -o librime-emacs.dll -O2 -shared -I. -I"$emacs_install_dir/include/" -L. -llibrime
         ls -l
+        ldd librime-emacs.dll
+        ldd librime.dll
         mv *.dll "$emacs_install_dir/bin/" 
         cd $emacs_source_dir/admin/notes/tree-sitter/build-module/
         echo Building tree-sitter in directory $PWD
