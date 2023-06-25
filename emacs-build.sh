@@ -200,7 +200,7 @@ function action2_build ()
 {
     echo start building
     tsdir="$PWD"
-    cd $emacs_build_git_dir/
+    cd "$emacs_build_git_dir/"
     ls -l
     cd "${tsdir}" 
     rm -f "$emacs_install_dir/bin/emacs.exe"
