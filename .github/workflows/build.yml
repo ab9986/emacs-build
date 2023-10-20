@@ -48,14 +48,14 @@ jobs:
       # This is the shortest job, but in this case it pulls all MSYS/MINGW64
       - name: Clone Emacs
         if: runner.os == 'Windows'
-        run: .\emacs-build.cmd --clone --branch emacs-29 --repo https://git.savannah.gnu.org/git/emacs.git --depth 1
+        run: .\emacs-build.cmd --clone  --repo https://git.savannah.gnu.org/git/emacs.git --depth 1
 
       - name: Clone Emacs
         if: runner.os != 'Windows'
         run: |
           mkdir -p ./git/emacs
           cd ./git/emacs/
-          git clone --branch emacs-29 --depth 1 $EMACS_REPO . 
+          git clone --depth 1 $EMACS_REPO . 
           echo "EMACS_COMMIT=`date +'%Y%m%d'`.`git rev-parse --short=7 HEAD`" >> $GITHUB_ENV
           echo "EMACS_MAJOR_VER=`cat configure.ac | grep -Po 'AC_INIT\(.*\[\K\d+'`" >> $GITHUB_ENV
 
