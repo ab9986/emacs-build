@@ -244,10 +244,10 @@ function action2_install ()
         # cd $emacs_source_dir/admin/notes/tree-sitter/build-module/
         echo Building liberime in directory $PWD 
         pacman -Sy --overwrite "*" --needed base-devel zip \
-           mingw64-gcc                 \
-           mingw64-librime             \
-           mingw64-librime-data        
-        ln -s /mingw64/share/opencc/* /mingw64/share/rime-data/opencc # Fix the Simplified Chinese input
+           ${MINGW_PACKAGE_PREFIX}-gcc                 \
+           ${MINGW_PACKAGE_PREFIX}-librime             \
+           ${MINGW_PACKAGE_PREFIX}-librime-data              
+        ln -s ${MINGW_PREFIX}/share/opencc/* ${MINGW_PREFIX}/share/rime-data/opencc
         git clone https://github.com/merrickluo/liberime.git  --depth 1 --quiet
         cd liberime
         echo export EMACS_MAJOR_VERSION = $emacs_build_version
