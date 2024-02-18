@@ -253,7 +253,7 @@ function action2_install ()
         echo export EMACS_MAJOR_VERSION = $emacs_build_version
         export EMACS_MAJOR_VERSION = $emacs_build_version
         make
-        # ls -l
+        ls -l
         # ldd librime-emacs.dll
         # ldd librime.dll
         # mv *.dll "$emacs_install_dir/bin/" 
