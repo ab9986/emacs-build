@@ -242,11 +242,17 @@ function action2_install ()
                   "$emacs_install_dir/usr/share/emacs/site-lisp/subdirs.el"
         tsdir="$PWD"
         # cd $emacs_source_dir/admin/notes/tree-sitter/build-module/
-        # echo Building emacs-rime in directory $PWD 
-        # git clone https://github.com/ab9986/emacs-rime.git  --depth 1 --quiet
-        # cd emacs-rime
-        # echo gcc lib.c -o librime-emacs.dll -O2 -shared -I. -I"$emacs_install_dir/include/" -L. -llibrime
-        # gcc lib.c -o librime-emacs.dll -O2 -shared -I. -I"$emacs_install_dir/include/" -L. -llibrime
+        echo Building liberime in directory $PWD 
+        pacman -Sy --overwrite "*" --needed base-devel zip \
+           mingw64-gcc                 \
+           mingw64-librime             \
+           mingw64-librime-data        
+        ln -s /mingw64/share/opencc/* /mingw64/share/rime-data/opencc # Fix the Simplified Chinese input
+        git clone https://github.com/merrickluo/liberime.git  --depth 1 --quiet
+        cd liberime
+        echo export EMACS_MAJOR_VERSION = $emacs_build_version
+        export EMACS_MAJOR_VERSION = $emacs_build_version
+        make
         # ls -l
         # ldd librime-emacs.dll
         # ldd librime.dll
