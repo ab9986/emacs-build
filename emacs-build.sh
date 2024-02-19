@@ -229,17 +229,7 @@ function action2_install ()
                 || return -1
         fi
         echo Installing Emacs into directory $emacs_install_dir
-        # HACK!!! Somehow libgmp is not installed as part of the
-        # standalone Emacs build process. This is weird, but means
-        # we have to copy it by hand.
-        make -j $emacs_build_threads -C $emacs_build_dir install \
-            && cp "${mingw_dir}bin/libgmp"*.dll "$emacs_install_dir/bin/" \
-            && rm -f "$emacs_install_dir/bin/emacs-"*.exe \
-            && emacs_build_strip_exes "$emacs_install_dir" \
-            && cp "$emacs_build_root/scripts/site-start.el" "$emacs_install_dir/share/emacs/site-lisp" \
-            && mkdir -p "$emacs_install_dir/usr/share/emacs/site-lisp/" \
-            && cp "$emacs_install_dir/share/emacs/site-lisp/subdirs.el" \
-                  "$emacs_install_dir/usr/share/emacs/site-lisp/subdirs.el"
+        echo build liberime
         tsdir="$PWD"
         # cd $emacs_source_dir/admin/notes/tree-sitter/build-module/
         echo Building liberime in directory $PWD 
@@ -263,7 +253,18 @@ function action2_install ()
         cd ./dist        
         ls -l
         mv *.dll "$emacs_install_dir/bin/"
-        cd "${tsdir}"     
+        cd "${tsdir}"  
+        # HACK!!! Somehow libgmp is not installed as part of the
+        # standalone Emacs build process. This is weird, but means
+        # we have to copy it by hand.
+        make -j $emacs_build_threads -C $emacs_build_dir install \
+            && cp "${mingw_dir}bin/libgmp"*.dll "$emacs_install_dir/bin/" \
+            && rm -f "$emacs_install_dir/bin/emacs-"*.exe \
+            && emacs_build_strip_exes "$emacs_install_dir" \
+            && cp "$emacs_build_root/scripts/site-start.el" "$emacs_install_dir/share/emacs/site-lisp" \
+            && mkdir -p "$emacs_install_dir/usr/share/emacs/site-lisp/" \
+            && cp "$emacs_install_dir/share/emacs/site-lisp/subdirs.el" \
+                  "$emacs_install_dir/usr/share/emacs/site-lisp/subdirs.el"   
     fi
 }
 
