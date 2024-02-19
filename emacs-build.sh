@@ -229,31 +229,6 @@ function action2_install ()
                 || return -1
         fi
         echo Installing Emacs into directory $emacs_install_dir
-        echo build liberime
-        tsdir="$PWD"
-        # cd $emacs_source_dir/admin/notes/tree-sitter/build-module/
-        echo Building liberime in directory $PWD 
-        pacman -Sy --overwrite "*" --needed base-devel zip \
-           ${MINGW_PACKAGE_PREFIX}-gcc                 \
-           ${MINGW_PACKAGE_PREFIX}-librime             \
-           ${MINGW_PACKAGE_PREFIX}-librime-data              
-        ln -s ${MINGW_PREFIX}/share/opencc/* ${MINGW_PREFIX}/share/rime-data/opencc
-        git clone https://github.com/merrickluo/liberime.git  --depth 1 --quiet
-        cd liberime
-        echo export EMACS_MAJOR_VERSION = $emacs_build_version
-        export EMACS_MAJOR_VERSION = $emacs_build_version
-        make
-        ls -l
-        # ldd librime-emacs.dll
-        # ldd librime.dll
-        # mv *.dll "$emacs_install_dir/bin/" 
-        cd $emacs_source_dir/admin/notes/tree-sitter/build-module/
-        echo Building tree-sitter in directory $PWD
-        $emacs_source_dir/admin/notes/tree-sitter/build-module/batch.sh
-        cd ./dist        
-        ls -l
-        mv *.dll "$emacs_install_dir/bin/"
-        cd "${tsdir}"  
         # HACK!!! Somehow libgmp is not installed as part of the
         # standalone Emacs build process. This is weird, but means
         # we have to copy it by hand.
@@ -264,7 +239,32 @@ function action2_install ()
             && cp "$emacs_build_root/scripts/site-start.el" "$emacs_install_dir/share/emacs/site-lisp" \
             && mkdir -p "$emacs_install_dir/usr/share/emacs/site-lisp/" \
             && cp "$emacs_install_dir/share/emacs/site-lisp/subdirs.el" \
-                  "$emacs_install_dir/usr/share/emacs/site-lisp/subdirs.el"   
+                  "$emacs_install_dir/usr/share/emacs/site-lisp/subdirs.el"
+        #echo build liberime
+        tsdir="$PWD"
+        # cd $emacs_source_dir/admin/notes/tree-sitter/build-module/
+        # echo Building liberime in directory $PWD 
+        # pacman -Sy --overwrite "*" --needed base-devel zip \
+        #   ${MINGW_PACKAGE_PREFIX}-gcc                 \
+        #   ${MINGW_PACKAGE_PREFIX}-librime             \
+        #   ${MINGW_PACKAGE_PREFIX}-librime-data              
+        # ln -s ${MINGW_PREFIX}/share/opencc/* ${MINGW_PREFIX}/share/rime-data/opencc
+        # git clone https://github.com/merrickluo/liberime.git  --depth 1 --quiet
+        # cd liberime
+        # echo export EMACS_MAJOR_VERSION = $emacs_build_version
+        # export EMACS_MAJOR_VERSION = $emacs_build_version
+        # make
+        # ls -l
+        # ldd librime-emacs.dll
+        # ldd librime.dll
+        # mv *.dll "$emacs_install_dir/bin/" 
+        cd $emacs_source_dir/admin/notes/tree-sitter/build-module/
+        echo Building tree-sitter in directory $PWD
+        $emacs_source_dir/admin/notes/tree-sitter/build-module/batch.sh
+        cd ./dist        
+        ls -l
+        mv *.dll "$emacs_install_dir/bin/"
+        cd "${tsdir}"  
     fi
 }
 
