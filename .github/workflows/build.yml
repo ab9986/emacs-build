@@ -52,10 +52,6 @@ jobs:
             shell: powershell
             msystem: MINGW64
             build_options: --with-rsvg --without-mps --with-tree-sitter=ifavailable
-          - os: windows-2022
-            shell: powershell
-            msystem: MINGW64
-            build_options: --variant mps --with-rsvg --with-mps --no-strip --enable-build-details --with-tree-sitter=ifavailable
           - os: ubuntu-22.04
             shell: bash
             build_options: --with-rsvg --with-mps --without-xwidgets
