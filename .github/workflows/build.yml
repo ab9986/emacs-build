@@ -51,7 +51,7 @@ jobs:
           - os: windows-2022
             shell: powershell
             msystem: MINGW64
-            build_options: --variant mps --with-rsvg --with-mps --no-strip --enable-build-details --with-tree-sitter=ifavailable
+            build_options: --variant mps --with-rsvg --with-mps --no-strip --enable-build-details --with-tree-sitter=ifavailable --with-compress-install=no
           #- os: ubuntu-22.04
           #  shell: bash
           #  build_options: --with-rsvg --with-mps --without-xwidgets
