@@ -122,8 +122,7 @@ jobs:
       - name: Package Emacs
         if: runner.os == 'Windows'
         run: |
-          $env:MSIXHeroCLI = &where.exe MSIXHeroCLI
-          .\emacs-build.cmd --slim --branch ${{ needs.prepare_env.outputs.commit }} --msix --pack-all ${{ matrix.build_options }}
+          .\emacs-build.cmd --slim --branch ${{ needs.prepare_env.outputs.commit }} --pack-all ${{ matrix.build_options }}
 
       - name: Build and pack Emacs
         if: runner.os != 'Windows'
