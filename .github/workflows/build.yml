@@ -15,7 +15,7 @@ jobs:
     name: Prepare build version
     runs-on: ubuntu-latest
     env:
-      EMACS_REPO: https://github.com/kiennq/emacs.git
+      EMACS_REPO: https://github.com/emacs-mirror/emacs.git
       GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
@@ -83,7 +83,7 @@ jobs:
       # This is the shortest job, but in this case it pulls all MSYS/MINGW64
       - name: Clone Emacs
         if: runner.os == 'Windows'
-        run: .\emacs-build.cmd --clone --repo https://github.com/kiennq/emacs.git --branch ${{ needs.prepare_env.outputs.commit }}
+        run: .\emacs-build.cmd --clone --repo https://github.com/emacs-mirror/emacs.git --branch ${{ needs.prepare_env.outputs.commit }}
 
       - name: Clone Emacs
         if: runner.os != 'Windows'
@@ -108,16 +108,6 @@ jobs:
         # Require --with-* flags, else the deps will not be included properly
         run: |
           .\emacs-build.cmd --slim --branch ${{ needs.prepare_env.outputs.commit }} --configure --build-dev ${{ matrix.build_options }}
-
-      - name: Install winget
-        if: runner.os == 'Windows'
-        uses: Cyberboss/install-winget@v1
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Install MSIXHeroCLI
-        if: runner.os == 'Windows'
-        run: winget install msixhero --disable-interactivity --accept-source-agreements
 
       - name: Package Emacs
         if: runner.os == 'Windows'
