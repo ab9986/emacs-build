@@ -51,10 +51,10 @@ jobs:
           - os: windows-2025
             shell: powershell
             msystem: UCRT64
-            build_options: --variant mps --with-rsvg --with-mps --enable-build-details --with_pdumper=no
+            build_options: --variant mps --with-rsvg --with-mps --enable-build-details --with-dumping=none
           - os: ubuntu-latest
             shell: bash
-            build_options: --with-rsvg --with-mps --without-xwidgets --with_pdumper=no
+            build_options: --with-rsvg --with-mps --without-xwidgets --with-dumping=none
 
     # The type of runner that the job will run on
     runs-on: ${{ matrix.os }}
