@@ -54,7 +54,7 @@ jobs:
             build_options: --with-rsvg --enable-build-details 
           - os: ubuntu-latest
             shell: bash
-            build_options: --with-rsvg --with-mps --without-xwidgets 
+            build_options: --with-rsvg --without-xwidgets 
 
     # The type of runner that the job will run on
     runs-on: ${{ matrix.os }}
