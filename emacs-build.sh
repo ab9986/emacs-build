@@ -126,7 +126,7 @@ function emacs_dependencies ()
 function emacs_configure_build_dir ()
 {
     cd "$emacs_build_dir"
-    options="$emacs_build_options"
+    options="$emacs_build_options --without-makeinfo"
     if test "$emacs_compress_files" = "no"; then
         options="$options --without-compress-install"
     else
