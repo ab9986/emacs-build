@@ -88,7 +88,7 @@ function check_mingw_architecture ()
 function ensure_mingw_build_software ()
 {
     echo Install essential packages
-    local build_packages="git zip unzip base-devel ${mingw_prefix}-toolchain autoconf automake"
+    local build_packages="git zip unzip base-devel ${mingw_prefix}-toolchain autoconf automake texinfo"
     pacman --noprogressbar --noconfirm --needed -S $build_packages
     if test "$?" != 0; then
         echo Unable to install $build_packages
@@ -126,7 +126,7 @@ function emacs_dependencies ()
 function emacs_configure_build_dir ()
 {
     cd "$emacs_build_dir"
-    options="$emacs_build_options --without-makeinfo"
+    options="$emacs_build_options"
     if test "$emacs_compress_files" = "no"; then
         options="$options --without-compress-install"
     else
