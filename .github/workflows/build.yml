@@ -119,7 +119,7 @@ jobs:
         run: |
           chmod 755 ./emacs-build-unix.sh
           mkdir -p ./zips
-          ./emacs-build-unix.sh -s ./git/emacs/ -v ${{ needs.prepare_env.outputs.version }} -d ./zips ${{ matrix.build_options }}
+          ./emacs-build-linux.sh -s ./git/emacs/ -v ${{ needs.prepare_env.outputs.version }} -d ./zips ${{ matrix.build_options }}
 
       # Upload release for each build
       - name: Upload binaries to release
