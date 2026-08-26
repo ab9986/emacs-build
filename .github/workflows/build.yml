@@ -117,7 +117,7 @@ jobs:
       - name: Build and pack Emacs
         if: runner.os != 'Windows'
         run: |
-          chmod 755 ./emacs-build-unix.sh
+          chmod 755 ./emacs-build-linux.sh
           mkdir -p ./zips
           ./emacs-build-linux.sh -s ./git/emacs/ -v ${{ needs.prepare_env.outputs.version }} -d ./zips ${{ matrix.build_options }}
 
