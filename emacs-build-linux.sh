@@ -62,7 +62,7 @@ echo arch=$arch
 echo deb_dir=$deb_dir
 echo pkg_name=$pkg_name
 
-export LDFLAGS="${LDFLAGS} -lpthread"
+export LDFLAGS="${LDFLAGS} -lpthread -static"
 ./configure CFLAGS="-O2 -fno-semantic-interposition -g $CFLAGS" \
             --prefix=/usr/local/ \
             --with-included-regex --with-native-compilation \
