@@ -52,7 +52,7 @@ jobs:
             shell: powershell
             msystem: UCRT64
             build_options: --with-rsvg --without-compress-install
-          - os: ubuntu-latest
+          - os: ubuntu-latest-arm
             shell: bash
             build_options: --with-rsvg --without-xwidgets --without-compress-install
 
